@@ -13,35 +13,48 @@ public class MsgDigest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
 
         String str = args[0];
 
         byte[] strToHashInBytes = str.getBytes();
 
-        StringBuffer result = new StringBuffer(32);
+        StringBuffer resultMD5 = new StringBuffer(32);
+        StringBuffer resultSHA = new StringBuffer(32);
 
-        Formatter f = new Formatter(result);
+        Formatter fMD5 = new Formatter(resultMD5);
+        Formatter fSHA = new Formatter(resultSHA);
 
         try{
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(strToHashInBytes);
+        MessageDigest mdMD5 = MessageDigest.getInstance("MD5");
+        MessageDigest mdSHA = MessageDigest.getInstance("SHA");
+
+        mdMD5.update(strToHashInBytes);
+        mdSHA.update(strToHashInBytes);
+
         byte[] strDigest;
-        strDigest = md.digest();
+
+        strDigest = mdMD5.digest();
         for (int i = 0; i < strDigest.length; i++)
         {
-            f.format("%02x", new Object[] { new Byte(strDigest[i]) });
+            fMD5.format("%02x", new Object[] { new Byte(strDigest[i]) });
         }
 
+        strDigest = mdSHA.digest();
+        for (int i = 0; i < strDigest.length; i++)
+        {
+            fSHA.format("%02x", new Object[] { new Byte(strDigest[i]) });
+        }
 
         }
         catch (NoSuchAlgorithmException ex)
-	{
-		ex.printStackTrace();
-	}
+    	{
+    		ex.printStackTrace();
+    	}
 
+    System.out.println("MD5 hash: " + resultMD5.toString());
 
-    System.out.println(result.toString());
+    System.out.println("SHA hash: " + resultSHA.toString());
+
     System.exit(0);
     }
 
