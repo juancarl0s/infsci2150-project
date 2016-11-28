@@ -18,37 +18,35 @@ public class MsgDigest {
 
         byte[] strToHashInBytes = str.getBytes();
 
-        StringBuffer resultMD5 = new StringBuffer(32);
-        StringBuffer resultSHA = new StringBuffer(32);
+        StringBuilder resultMD5 = new StringBuilder();
+        StringBuilder resultSHA = new StringBuilder();
 
         Formatter fMD5 = new Formatter(resultMD5);
         Formatter fSHA = new Formatter(resultSHA);
 
         try{
-        MessageDigest mdMD5 = MessageDigest.getInstance("MD5");
-        MessageDigest mdSHA = MessageDigest.getInstance("SHA");
+            MessageDigest mdMD5 = MessageDigest.getInstance("MD5");
+            MessageDigest mdSHA = MessageDigest.getInstance("SHA");
 
-        mdMD5.update(strToHashInBytes);
-        mdSHA.update(strToHashInBytes);
+            mdMD5.update(strToHashInBytes);
+            mdSHA.update(strToHashInBytes);
 
-        byte[] strDigest;
+            byte[] strDigest;
 
-        strDigest = mdMD5.digest();
-        for (int i = 0; i < strDigest.length; i++)
-        {
-            fMD5.format("%02x", new Object[] { new Byte(strDigest[i]) });
-        }
+            strDigest = mdMD5.digest();
+            for (int i = 0; i < strDigest.length; i++)
+            {
+                fMD5.format("%02x", new Object[] { new Byte(strDigest[i]) });
+            }
 
-        strDigest = mdSHA.digest();
-        for (int i = 0; i < strDigest.length; i++)
-        {
-            fSHA.format("%02x", new Object[] { new Byte(strDigest[i]) });
-        }
-
-        }
-        catch (NoSuchAlgorithmException ex)
+            strDigest = mdSHA.digest();
+            for (int i = 0; i < strDigest.length; i++)
+            {
+                fSHA.format("%02x", new Object[] { new Byte(strDigest[i]) });
+            }
+        } catch (Exception e)
     	{
-    		ex.printStackTrace();
+    		e.printStackTrace();
     	}
 
     System.out.println("MD5 hash: " + resultMD5.toString());
