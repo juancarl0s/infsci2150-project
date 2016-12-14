@@ -68,7 +68,7 @@ public class CipherClient
 
 		// System.out.println("messageBytes length:" + messageBytes.length);
 
-		// System.exit(0);
+		System.exit(0);
 
 	}
 }
