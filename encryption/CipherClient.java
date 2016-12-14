@@ -18,7 +18,8 @@ public class CipherClient
 
 		KeyGenerator keyGenerator = null;
 		try
-		{
+		{				// System.out.println("bytesRead: " + bytesRead);
+				// System.out.println("bytesReadOffset: " + bytesReadOffset);
 			keyGenerator = KeyGenerator.getInstance("DES");
 		}
 		catch (NoSuchAlgorithmException e)
@@ -67,7 +68,8 @@ public class CipherClient
 		cipherOut.close();
 
 		// System.out.println("messageBytes length:" + messageBytes.length);
-
+		s.close();
+		
 		System.exit(0);
 
 	}

@@ -35,25 +35,21 @@ public class CipherServer
 		File file = new File("KeyFile.xx");
 
 		byte[] buf = new byte[(int) file.length()];
+		// System.out.println("array length: " + buf.length);
 
+		String finalMessage = "";
 
-		// int bytesRead = 0;
-		// int bytesReadOffset = 0;
 		try {
-			int bytesRead = 0;
-			int bytesReadOffset = 0;
+			while ((dcipherIn.read(buf)) >= 0) {
 
-			while ((bytesRead=dcipherIn.read(buf)) >= 0) {
-				System.out.println("bytesRead: " + bytesRead);
-				System.out.println("bytesReadOffset: " + bytesReadOffset);
-
-		    	os.write(buf, bytesReadOffset, bytesRead);
-				bytesReadOffset = bytesReadOffset + bytesRead;
-
-				// String message = new String(buf);
+		    	os.write(buf);
+				String message = new String(buf, "UTF-8");
 				// System.out.println("Message: " + message);
-				//
-				// System.out.println("------------------------------------");
+
+				finalMessage = finalMessage + message;
+				// System.out.println("Message: " + finalMessage);
+
+				buf = new byte[(int) file.length()];
 			}
 
 		os.close();
@@ -62,17 +58,15 @@ public class CipherServer
 
 		in.close();
 
+		s.close();
+
 		}catch (Exception e)
     	{
     		e.printStackTrace();
     	}
 
-
-		String message = new String(buf);
-
-
 		// -Print out the decrypt String to see if it matches the orignal message.
-		System.out.println("Message: " + message);
+		System.out.println("Message: " + finalMessage);
 
 		System.exit(0);
 	}
