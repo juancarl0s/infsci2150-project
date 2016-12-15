@@ -5,31 +5,61 @@ import java.math.BigInteger;
 
 public class ElGamalAlice
 {
+	// Credit to http://stackoverflow.com/questions/13673600/how-to-write-a-simple-java-program-that-finds-the-greatest-common-divisor-betwee
+	private static BigInteger gcd(BigInteger a, BigInteger b)
+	{
+		if ( (a.equals(BigInteger.ZERO)) || (b.equals(BigInteger.ZERO)) )
+			return a.add(b); // base case
+		return gcd(b, a.mod(b));
+	}
+
+	private static boolean isRelativelyPrime(BigInteger a, BigInteger b)
+	{
+		if ( gcd(a, b).equals(BigInteger.ONE) )
+			return true;
+		else
+			return false;
+	}
+
 	private static BigInteger computeY(BigInteger p, BigInteger g, BigInteger d)
 	{
 		// IMPLEMENT THIS FUNCTION;
+		return g.modPow(d, p);
 	}
 
 	private static BigInteger computeK(BigInteger p)
 	{
 		// IMPLEMENT THIS FUNCTION;
+		BigInteger k = new BigInteger(1024, 16, new SecureRandom());
+
+		// when the gcd==1 the numbers are relatively prime
+		if (k.gcd(p.subtract(BigInteger.ONE)).equals(BigInteger.ONE) == true)
+			return k;
+		else
+		{
+			// very unlikely to happen, but if the generated number is not relatively prime, make a new one until we get one
+			return computeK(p);
+		}
 	}
-	
+
 	private static BigInteger computeA(BigInteger p, BigInteger g, BigInteger k)
 	{
 		// IMPLEMENT THIS FUNCTION;
+		return g.modPow(k, p);
 	}
 
 	private static BigInteger computeB(	String message, BigInteger d, BigInteger a, BigInteger k, BigInteger p)
 	{
 		// IMPLEMENT THIS FUNCTION;
+		BigInteger h = k.modInverse(p.subtract(BigInteger.ONE));
+		return ( (new BigInteger(message.getBytes()).subtract(d.multiply(a))).multiply(h).mod(p.subtract(BigInteger.ONE)) );
 	}
 
-	public static void main(String[] args) throws Exception 
+	public static void main(String[] args) throws Exception
 	{
 		String message = "The quick brown fox jumps over the lazy dog.";
 
-		String host = "paradox.sis.pitt.edu";
+		String host = "localhost";
 		int port = 7999;
 		Socket s = new Socket(host, port);
 		ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
@@ -44,7 +74,7 @@ public class ElGamalAlice
 		// Create a BigInterger with mStrength bit length that is highly likely to be prime.
 		// (The '16' determines the probability that p is prime. Refer to BigInteger documentation.)
 		p = new BigInteger(mStrength, 16, mSecureRandom);
-		
+
 		// Create a randomly generated BigInteger of length mStrength-1
 		g = new BigInteger(mStrength-1, mSecureRandom);
 		d = new BigInteger(mStrength-1, mSecureRandom);
@@ -64,11 +94,12 @@ public class ElGamalAlice
 
 		// send message
 		os.writeObject(message);
-		
+
 		// send signature
 		os.writeObject(a);
 		os.writeObject(b);
-		
+
+		os.close();
 		s.close();
 	}
 }

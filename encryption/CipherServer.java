@@ -42,14 +42,14 @@ public class CipherServer
 		try {
 			while ((dcipherIn.read(buf)) >= 0) {
 
-		    	os.write(buf);
+				os.write(buf);
 				String message = new String(buf, "UTF-8");
 				// System.out.println("Message: " + message);
 
 				finalMessage = finalMessage + message;
 				// System.out.println("Message: " + finalMessage);
 
-				buf = new byte[(int) file.length()];
+				buf = new byte[buf.length];
 			}
 
 		os.close();
