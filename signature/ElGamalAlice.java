@@ -5,22 +5,6 @@ import java.math.BigInteger;
 
 public class ElGamalAlice
 {
-	// Credit to http://stackoverflow.com/questions/13673600/how-to-write-a-simple-java-program-that-finds-the-greatest-common-divisor-betwee
-	private static BigInteger gcd(BigInteger a, BigInteger b)
-	{
-		if ( (a.equals(BigInteger.ZERO)) || (b.equals(BigInteger.ZERO)) )
-			return a.add(b); // base case
-		return gcd(b, a.mod(b));
-	}
-
-	private static boolean isRelativelyPrime(BigInteger a, BigInteger b)
-	{
-		if ( gcd(a, b).equals(BigInteger.ONE) )
-			return true;
-		else
-			return false;
-	}
-
 	private static BigInteger computeY(BigInteger p, BigInteger g, BigInteger d)
 	{
 		// IMPLEMENT THIS FUNCTION;
