@@ -39,7 +39,7 @@ public class Sender {
 		// get user input to know which key to use for encryption
 		System.out.println("Hello, I am the sender, please make a selection:");
 		System.out.println("1) Confidentiality");
-	    System.out.println("2) Integrity/Authentication");
+		System.out.println("2) Integrity/Authentication");
 		Scanner selection = new Scanner(System.in);
 
 		// send the selection to the receiver so he knows what decryption key to use
@@ -50,6 +50,7 @@ public class Sender {
 
 		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 
+		// Based on the selection, decide how to encrypt the message
 		if (selectionValue == 1)
 		{
 			// Confidentiality: encrypt with the receiver's public key
@@ -72,6 +73,7 @@ public class Sender {
 		os.flush();
 		os.close();
 		s.close();
+
 		System.exit(0);
 		}
 	}

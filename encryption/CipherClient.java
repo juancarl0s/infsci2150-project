@@ -2,7 +2,6 @@ import java.io.*;
 import java.net.*;
 import java.security.*;
 import javax.crypto.*;
-// import
 
 public class CipherClient
 {
@@ -27,14 +26,9 @@ public class CipherClient
 			System.exit(0);
 		}
 
+		// generate key and save it to a file
 		keyGenerator.init(56, new SecureRandom());
-
 		Key key = keyGenerator.generateKey();
-
-		System.out.println(key.getFormat());
-		System.out.println(key.getEncoded());
-
-
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("KeyFile.xx", false));
 
 		out.writeObject(key);

@@ -57,5 +57,7 @@ public class ElGamalBob
 
 		is.close();
 		s.close();
+
+		System.exit(0);
 	}
 }

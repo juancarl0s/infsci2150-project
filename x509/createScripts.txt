@@ -1,0 +1,2 @@
+keytool -genkey -keyalg RSA -alias juanca -keystore keystore.jks
+keytool -export -alias juanca -storepass password -file server.cer -keystore keystore.jks

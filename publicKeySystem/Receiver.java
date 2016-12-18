@@ -49,7 +49,7 @@ public class Receiver {
 		  	cipher.init(Cipher.DECRYPT_MODE, myPrivateKey);
 			byte[] messageBytes = cipher.doFinal(cipherText);
 			String message = new String(messageBytes);
-			System.out.println("Message received: " + message);
+			System.out.println("Confidential message received: " + message);
 		}
 		else if (selectionValue == 2)
 		{
@@ -58,7 +58,7 @@ public class Receiver {
 		  	cipher.init(Cipher.DECRYPT_MODE, senderPublicKey);
 			byte[] messageBytes = cipher.doFinal(cipherText);
 			String message = new String(messageBytes);
-			System.out.println("Message received: " + message);
+			System.out.println("Message received from authenticated sender: " + message);
 		}
 		else
 		{

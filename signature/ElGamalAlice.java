@@ -85,5 +85,7 @@ public class ElGamalAlice
 
 		os.close();
 		s.close();
+
+		System.exit(0);
 	}
 }

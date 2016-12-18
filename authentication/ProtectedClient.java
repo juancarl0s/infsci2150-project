@@ -1,5 +1,3 @@
-package authentication;
-// import Protection;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -52,5 +50,7 @@ public class ProtectedClient
 		client.sendAuthentication(user, password, s.getOutputStream());
 
 		s.close();
+
+		System.exit(0);
 	}
 }

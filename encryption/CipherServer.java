@@ -11,7 +11,8 @@ public class CipherServer
 		ServerSocket server = new ServerSocket(port);
 		Socket s = server.accept();
 
-		// Make the server wait for my input to continue
+		// Make the server wait for client to start
+		System.out.println("Start the client, then come back and press enter");
 		System.in.read();
 
 		// YOU NEED TO DO THESE STEPS:

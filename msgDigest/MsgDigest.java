@@ -3,19 +3,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
-/**
- *
- * @author juan
- */
 public class MsgDigest {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 
+        // string to hash
         String str = args[0];
-
+        // convert string to byte array
         byte[] strToHashInBytes = str.getBytes();
 
         StringBuilder resultMD5 = new StringBuilder();
@@ -33,6 +27,7 @@ public class MsgDigest {
 
             byte[] strDigest;
 
+            // format hashes as a hex string to print them
             strDigest = mdMD5.digest();
             for (int i = 0; i < strDigest.length; i++)
             {

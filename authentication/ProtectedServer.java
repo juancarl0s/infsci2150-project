@@ -1,4 +1,3 @@
-package authentication;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -46,5 +45,7 @@ public class ProtectedServer
 		  System.out.println("Client failed to log in.");
 
 		s.close();
+
+		System.exit(0);
 	}
 }

@@ -1,4 +1,3 @@
-package authentication;
 import java.io.*;
 import java.security.*;
 
@@ -41,11 +40,6 @@ public class Protection
 		dataOut.writeUTF(password);
 
 		byte[] userPassArray = byteOut.toByteArray();
-
-		// t1 = getTime();
-
-		// Random r = new Random();
-		// q1 = r.nextDouble();
 
 		return makeDigest(userPassArray, t1, q1);
 
