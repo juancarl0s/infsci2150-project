@@ -14,18 +14,16 @@ public class CipherClient
 		Socket s = new Socket(host, port);
 
 		// YOU NEED TO DO THESE STEPS:
-		// -Generate a DES key.
 
+		// -Generate a DES key.
 		KeyGenerator keyGenerator = null;
 		try
-		{				// System.out.println("bytesRead: " + bytesRead);
-				// System.out.println("bytesReadOffset: " + bytesReadOffset);
+		{
 			keyGenerator = KeyGenerator.getInstance("DES");
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			// _log.error("Unsupported algorithm: " + algorithm + ", size: " + keySize, e);
-			// return null;
+			e.printStackTrace();
 			System.exit(0);
 		}
 
@@ -36,15 +34,11 @@ public class CipherClient
 		System.out.println(key.getFormat());
 		System.out.println(key.getEncoded());
 
-		// byte[] encoded = key.getEncoded();
 
-		// -Store it in a file. (see http://stackoverflow.com/questions/6403662/how-to-use-a-key-generated-by-keygenerator-at-a-later-time)
-				// http://stackoverflow.com/questions/27064383/difference-between-key-material-and-actual-key
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("KeyFile.xx", false));
 
 		out.writeObject(key);
 
-		// out.close();
 
 		// -Use the key to encrypt the message above and send it over socket s to the server.
 		Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
@@ -53,23 +47,15 @@ public class CipherClient
 
 		byte[] messageBytes = message.getBytes("UTF-8");
 
-		// byte[] encryptedMessage = new byte[cipher.getOutputSize(messageBytes.length)];
-
-		// int enc_len = cipher.doFinal(message, 0, message.length, encryptedMessage, 0);
-		// encryptedMessage = cipher.doFinal(messageBytes, 0, messageBytes.length);
-
-		// enc_len += cipher.doFinal(encrypted, enc_len);
 		CipherOutputStream cipherOut = new CipherOutputStream(s.getOutputStream(), cipher);
 
-		// cipherOut.write(encryptedMessage);
 		cipherOut.write(messageBytes, 0, messageBytes.length);
 
 		out.close();
 		cipherOut.close();
 
-		// System.out.println("messageBytes length:" + messageBytes.length);
 		s.close();
-		
+
 		System.exit(0);
 
 	}
